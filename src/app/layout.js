@@ -8,14 +8,14 @@ import Sidebar from "@/components/layout/Sidebar"
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="h-screen flex flex-col overflow-hidden">
+      <body className="h-screen flex flex-col overflow-hidden bg-potify-void text-potify-text">
           <Navbar/>                 {/* Top navigation bar */}
 
         {/* Main wrapper excluding audioplayer and navbar */}
           <div className="flex-1 w-full flex overflow-hidden">  
             <Sidebar/>              {/* playlists side panel (left) */}
 
-            <main className="pb-20 pt-16 ml-20 mr-100 flex-1 overflow-y-auto min-h-0 rounded">{children}</main> {/* centre area */}
+            <main className="pb-20 pt-16 ml-20 mr-100 flex-1 overflow-y-auto min-h-0 rounded bg-potify-void">{children}</main> {/* centre area */}
 
             <LyricsPanel/>          {/* Lyrics Side panel (right) */}
         </div>

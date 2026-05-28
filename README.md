@@ -32,7 +32,7 @@ Built with a heavy focus on separation of concerns to keep API routes clean and 
     │   │   └── layout.jsx      # Root HTML/Body
     │   │
     │   ├── components/         # React UI Building Blocks
-    │   │   ├── layout/         # Sidebar, Navbar
+    │   │   ├── layout/         # Sidebar, Navbar, LyricsPanel
     │   │   ├── player/         # AudioPlayer, ProgressBar, Volume
     │   │   └── ui/             # Reusable Buttons, Cards, Inputs
     │   │

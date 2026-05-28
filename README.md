@@ -50,7 +50,7 @@ Built with a heavy focus on separation of concerns to keep API routes clean and 
 
 ### Installation
 1. Clone the repository:
-   `git clone https://github.com/yourusername/potify.git`
+   `git clone https://github.com/unclepro/potify.git`
    `cd potify`
 2. Install dependencies:
    `npm install`

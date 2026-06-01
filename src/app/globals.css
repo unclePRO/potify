@@ -40,6 +40,13 @@
   background-color: var(--color-potify-accent-dim); /* Turns subtle amber when you hover over it! */
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }

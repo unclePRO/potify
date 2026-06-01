@@ -7,10 +7,10 @@ const Navbar = () => {
         <Image 
           src="/potifywithtext.png"
           alt="Potify Logo"
-          width={120}
-          height={80}
+          width={80}
+          height={12}
           priority
-          className="flex rounded-full pt-0.5 w-auto justify-start"
+          className="h-12 flex rounded-full pt-0.5 w-auto justify-start"
         />
         <div className="absolute left-1/2 -translate-x-1/2">
           <div className="flex items-center gap-32 px-4 py-2 rounded-full w-96 text-center bg-potify-surface border border-potify-hover text-potify-text">

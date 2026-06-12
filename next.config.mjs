@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  // Allows Next.js HMR (Live Reloading) to pass through the Cloudflare Tunnel
+  allowedDevOrigins: ['unclepro.site', 'https://unclepro.site'],
+  
   reactCompiler: true,
   devIndicators: {
     position: "bottom-right", // Options: 'bottom-right', 'bottom-left', 'top-left', 'top-right'

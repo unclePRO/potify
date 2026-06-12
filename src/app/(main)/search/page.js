@@ -1,6 +1,6 @@
 import React from 'react'
 
-constSsearchPage = () => {
+const searchPage = () => {
   return (
     <div>SearchPage</div>
   )

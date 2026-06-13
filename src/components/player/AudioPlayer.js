@@ -1,9 +1,10 @@
 'use client';
 import Image from 'next/image'
 import React, { useRef, useState } from 'react'
+import ProgressBar from './ProgressBar';
 
 const dummyTrack = {
-  title: "Killer Queen - Remastered 2011",
+  title: "Bohemian Rhapsody",
   artist: "Queen",
   thumbnail: "https://i.ytimg.com/vi/bR-gZQLO26w/hqdefault.jpg",
   duration: 180,
@@ -12,7 +13,7 @@ const dummyTrack = {
 const AudioPlayer = () => {
   const [imageError, setImageError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(355);
 
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -42,6 +43,7 @@ const AudioPlayer = () => {
       audioRef.current.currentTime = newTime;
     }
     setCurrentTime(newTime);
+    
   };
 
   return (
@@ -74,14 +76,11 @@ const AudioPlayer = () => {
 
         {/* MIDDLE PART */}
         <div className="w-1/3 flex flex-col items-center justify-center">
-          <input 
-            type="range" 
-            min={0} 
-            // PROGRESS BAR SCRUB
-            max={duration === Infinity || !duration ? dummyTrack.duration : duration} 
-            value={currentTime} 
-            onChange={handleScrub}
-            className="w-full h-0.5 bg-neutral-600 rounded-lg appearance-none cursor-pointer accent-stone-200 mb-[20px]"
+          
+          <ProgressBar
+            PBcurrentTime={currentTime}
+            PBduration={duration}
+            onScrub={handleScrub}
           />
           
           <div className='flex w-full items-center justify-between gap-3 text-[10px] text-potify-muted'>

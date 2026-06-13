@@ -7,16 +7,17 @@ const dummyTrack = {
   title: "Bohemian Rhapsody",
   artist: "Queen",
   thumbnail: "https://i.ytimg.com/vi/bR-gZQLO26w/hqdefault.jpg",
-  duration: 180,
+  duration: 355,
   streamUrl: "",
 }
 const AudioPlayer = () => {
   const [imageError, setImageError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(355);
-
-  const audioRef = useRef(null);
+  const [duration, setDuration] = useState(dummyTrack.duration);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  
+  const audioRef = useRef(null);
   
   const togglePlay = () => {
     if (!audioRef.current) return;

@@ -26,11 +26,19 @@ export async function GET(req) {
     });
 
     req.signal.addEventListener('abort', () => {
-        console.log('Browser closed the connection. Killing yt-dlp...');
-        ytdlp.kill();
+        if (ytdlp && ytdlp.exitCode === null) {
+            ytdlp.kill('SIGTERM'); // Send a gentle signal
+        }
     });
 
-    const webStream = Readable.toWeb(ytdlp.stdout);
+    try {
+        const webStream = Readable.toWeb(ytdlp.stdout);
+    } catch (err) {
+        if (err.code !== 'ERR_INVALID_STATE') {
+        console.error('Stream Setup Error:', err);
+        }
+        return new Response('Stream failed', { status: 500 });
+    }
 
     return new Response(webStream, {
         headers: {

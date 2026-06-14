@@ -5,33 +5,33 @@ import ProgressBar from './ProgressBar';
 import usePlayerStore from '@/store/usePlayerStore';
 
 const dummyTrack = {
-  title: "Bohemian Rhapsody",
-  artist: "Queen",
-  coverArt: "https://i.ytimg.com/vi/bR-gZQLO26w/hqdefault.jpg",
+  title: "",
+  artist: "",
+  coverArt: "",
   duration: 355,
-  id: "fJ9rUzIMcZQ",
+  id: "",
 }
 const AudioPlayer = () => {
   const [imageError, setImageError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(dummyTrack.duration);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  const { currentSong, isPlaying2, playSong, togglePlay2  } = usePlayerStore();
+
+  const { currentSong, isPlaying, playSong, togglePlay  } = usePlayerStore();
 
   const audioRef = useRef(null);
-  
-  const togglePlay = () => {
+  React.useEffect(() => {
     if (!audioRef.current) return;
 
     if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
+      audioRef.current.play().catch(() => {
+      });
     } else {
-      audioRef.current.play();
-      setIsPlaying(true);
+      audioRef.current.pause();
     }
-  };
+  }, [isPlaying, currentSong]);
+
+  if (!currentSong) return null;
 
   const formatTime = (timeInSeconds) => {
     if (isNaN(timeInSeconds) || !isFinite(timeInSeconds)) return "0:00";
@@ -48,6 +48,9 @@ const AudioPlayer = () => {
     setCurrentTime(newTime);
     
   };
+  const handleTogglePlay = () => {
+    togglePlay(); 
+  };
 
   return (
     <footer className="fixed flex bottom-0 left-0 w-full h-20 bg-potify-void border-t border-potify-hover z-50 justify-between">
@@ -55,7 +58,7 @@ const AudioPlayer = () => {
       <audio 
         ref={audioRef} 
         src={`/api/stream?id=${currentSong.id}`}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => isPlaying(false)}
         onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
         onLoadedMetadata={() => setDuration(audioRef.current.duration)}
       />
@@ -63,7 +66,7 @@ const AudioPlayer = () => {
         {/* LEFT PART */}
         <div className='flex items-center h-full pl-4 w-1/3 justify-start'> 
             <Image
-              src={/*currentSong.coverArt || */'/song-cover.png'}
+              src={currentSong.coverArt || '/song-cover.png'}
               alt='song cover'
               width={64}
               height={64}
@@ -107,7 +110,7 @@ const AudioPlayer = () => {
                     className='h-auto'/>
                   </button>
 
-                  <button onClick={togglePlay} className='opacity-70 hover:opacity-100 hover:scale-110 transition transform active:scale-95'>
+                  <button onClick={handleTogglePlay} className='opacity-70 hover:opacity-100 hover:scale-110 transition transform active:scale-95'>
                     {!isPlaying ?
                     <Image
                       src='/play-button.png'
@@ -143,7 +146,7 @@ const AudioPlayer = () => {
                   </button>
                   </div>
               
-              <div className='justify-end text-[10px]'>00:00</div>
+              <div className='justify-end text-[10px]'>{formatTime(duration)}</div>
             </div>
         </div>
 

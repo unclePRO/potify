@@ -1,3 +1,4 @@
+import { platform } from 'os';
 import { spawn } from 'child_process';
 import { Readable } from 'stream';
 import path from 'path';
@@ -12,8 +13,9 @@ export async function GET(req) {
     const targetUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
     const ytDlpPath = path.join(process.cwd(), 'yt-dlp.exe');
+    const ytDlpCommand = platform() === 'win32' ? ytDlpPath : 'yt-dlp';     // for both windows and linux
 
-    const ytdlp = spawn(ytDlpPath, [
+    const ytdlp = spawn(ytDlpCommand, [
         '-o', '-', 
         '-f', 'ba/b', 
         '--extractor-args', 'youtube:player_client=android', 
@@ -26,7 +28,7 @@ export async function GET(req) {
             ytdlp.kill('SIGINT'); 
         }
     });
-    
+
     ytdlp.stdout.on('error', (err) => {
         if (err.code === 'ERR_INVALID_STATE' || err.code === 'EPIPE') {
             return;

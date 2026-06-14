@@ -1,3 +1,4 @@
+import { platform } from 'os';
 import { spawn } from 'child_process';
 import path from 'path';
 
@@ -8,10 +9,12 @@ export async function GET(req) {
     if (!songName) return Response.json({ error: 'Missing song name' }, { status: 400 });
     
     const ytDlpPath = path.join(process.cwd(), 'yt-dlp.exe');
+    const ytDlpCommand = platform() === 'win32' ? ytDlpPath : 'yt-dlp';     // for both windows and linux
+    
 
     try {
         const rawJsonString = await new Promise((resolve, reject) => {
-            const ytdlp = spawn(ytDlpPath, [
+            const ytdlp = spawn(ytDlpCommand, [
                 `ytsearch20:${songName}`, 
                 '--dump-json', 
                 '--flat-playlist',

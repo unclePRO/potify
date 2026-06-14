@@ -2,13 +2,14 @@
 import Image from 'next/image'
 import React, { useRef, useState } from 'react'
 import ProgressBar from './ProgressBar';
+import usePlayerStore from '@/store/usePlayerStore';
 
 const dummyTrack = {
   title: "Bohemian Rhapsody",
   artist: "Queen",
-  thumbnail: "https://i.ytimg.com/vi/bR-gZQLO26w/hqdefault.jpg",
+  coverArt: "https://i.ytimg.com/vi/bR-gZQLO26w/hqdefault.jpg",
   duration: 355,
-  streamUrl: "",
+  id: "fJ9rUzIMcZQ",
 }
 const AudioPlayer = () => {
   const [imageError, setImageError] = useState(false);
@@ -16,7 +17,8 @@ const AudioPlayer = () => {
   const [duration, setDuration] = useState(dummyTrack.duration);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  
+  const { currentSong, isPlaying2, playSong, togglePlay2  } = usePlayerStore();
+
   const audioRef = useRef(null);
   
   const togglePlay = () => {
@@ -52,7 +54,7 @@ const AudioPlayer = () => {
 
       <audio 
         ref={audioRef} 
-        src="/api/stream?id=fJ9rUzIMcZQ" 
+        src={`/api/stream?id=${currentSong.id}`}
         onEnded={() => setIsPlaying(false)}
         onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
         onLoadedMetadata={() => setDuration(audioRef.current.duration)}
@@ -61,17 +63,17 @@ const AudioPlayer = () => {
         {/* LEFT PART */}
         <div className='flex items-center h-full pl-4 w-1/3 justify-start'> 
             <Image
-              src={imageError ? '/song-cover.png' : dummyTrack.thumbnail}
+              src={/*currentSong.coverArt || */'/song-cover.png'}
               alt='song cover'
               width={64}
               height={64}
               className='w-16 h-16 mr-4 rounded-md object-cover shadow-lg bg-potify-surface'
-              onError={() => setImageError(true)}  
+              onError={(e) => e.target.src = '/song-cover.png'}  
             />
             
             <div className='flex-1'>
-                <h2 className='truncate font-bold text-base'>{dummyTrack.title.slice(0,50)}</h2>
-                <p className='truncate text-xs'>{dummyTrack.artist.slice(0,50)}</p>
+                <h2 className='truncate font-bold text-base'>{currentSong.title.slice(0,50)}</h2>
+                <p className='truncate text-xs'>{currentSong.artist.slice(0,50)}</p>
             </div>
         </div>
 

@@ -14,25 +14,32 @@ export async function GET(req) {
     const ytDlpPath = path.join(process.cwd(), 'yt-dlp.exe');
 
     const ytdlp = spawn(ytDlpPath, [
-        '-f', 'bestaudio',
-        '--js-runtimes', 'node',
-        '-q',              
-        '-o', '-',         
-        targetUrl
+        '-o', '-', 
+        '-f', 'ba/b', 
+        '--extractor-args', 'youtube:player_client=android', 
+        '--ignore-errors',
+        `https://www.youtube.com/watch?v=${videoId}`
     ]);
+
+    req.signal.addEventListener('abort', () => {
+        if (ytdlp && ytdlp.exitCode === null) {
+            ytdlp.kill('SIGINT'); 
+        }
+    });
+    
+    ytdlp.stdout.on('error', (err) => {
+        if (err.code === 'ERR_INVALID_STATE' || err.code === 'EPIPE') {
+            return;
+        }
+    });
 
     ytdlp.stderr.on('data', (data) => {
         console.error('yt-dlp Error:', data.toString());
     });
 
-    req.signal.addEventListener('abort', () => {
-        if (ytdlp && ytdlp.exitCode === null) {
-            ytdlp.kill('SIGTERM'); // Send a gentle signal
-        }
-    });
-
+    let webStream;
     try {
-        const webStream = Readable.toWeb(ytdlp.stdout);
+        webStream = Readable.toWeb(ytdlp.stdout);
     } catch (err) {
         if (err.code !== 'ERR_INVALID_STATE') {
         console.error('Stream Setup Error:', err);

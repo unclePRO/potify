@@ -29,19 +29,19 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
         </div>
         <div className='w-full h-[1px] bg-gray-500 opacity-30'></div>
 
-        {songsList.map((song) => {
+        {songsList.map((song, index) => {
             return (
                 <div key={song.id} className='grid grid-cols-[50px_minmax(0,2fr)_minmax(0,2fr)_1fr_50px] py-2'>
-                    <p className='truncate'>{song.id}.</p>
+                    <p className='truncate'>{index + 1}.</p>
                     <p className='truncate'>{song.title}</p>
                     <p className='truncate'>{song.artist}</p>
                     <p className='truncate'>{song.duration}</p>
                     <Image
-                        src={song.thumbnail || '/song-cover.png'}
+                        src={song.coverArt || '/song-cover.png'}
                         alt=''
                         width={20}
                         height={20}
-                        className='h-auto rounded object-cover'
+                        className='h-auto w-auto rounded object-cover'
                         onError={(e) => e.target.src = '/song-cover.png'}
                         />
                 </div>

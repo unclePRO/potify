@@ -1,8 +1,24 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  //debouncing 
+  useEffect(() => {
+    if (searchQuery.trim() === '') return;
+    
+    const delayBounce = setTimeout(() => {
+      router.push(`/search?q=${searchQuery}`);
+    }, 2000);
+
+    return () => clearTimeout(delayBounce);
+  }, [searchQuery, router]);
+
   return (
     <header className="fixed top-0 left-0 w-full h-16 z-50 flex items-center px-6 bg-potify-void border-b border-potify-hover">
         <Link
@@ -25,7 +41,20 @@ const Navbar = () => {
                   width={20}
                   height={20}
                   />
-                Search
+                <input 
+                  type='text'
+                  placeholder='Search'
+                  className='bg-transparent outline-none'
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      if (searchQuery.trim() !== '') {
+                        router.push(`/search?q=${searchQuery}`);
+                      }
+                    }
+                  }}
+                  />
           </div>
         </div>
         <button className='flex-1 flex justify-end'>

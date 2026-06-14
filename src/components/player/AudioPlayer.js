@@ -58,7 +58,7 @@ const AudioPlayer = () => {
       <audio 
         ref={audioRef} 
         src={`/api/stream?id=${currentSong.id}`}
-        onEnded={() => isPlaying(false)}
+        onEnded={() => togglePlay()}
         onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
         onLoadedMetadata={() => setDuration(audioRef.current.duration)}
       />

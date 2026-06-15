@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar"
 import LyricsPanel from "@/components/layout/LyricsPanel"
 import Sidebar from "@/components/layout/Sidebar"
 import AuthProvider from "@/components/AuthProvider"
+import LogTripwire from "@/components/LogTripwire"
 
 export const metadata = {
   title: 'Potify',
@@ -15,9 +16,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="h-screen flex flex-col overflow-hidden bg-potify-void text-potify-text">
         <AuthProvider>
+          <LogTripwire/>
           <Navbar/>                 {/* Top navigation bar */}
 
-        {/* Main wrapper excluding audioplayer and navbar */}
+          {/* Main wrapper excluding audioplayer and navbar */}
           <div className="flex-1 w-full flex overflow-hidden">  
             <Sidebar/>              {/* playlists side panel (left) */}
 

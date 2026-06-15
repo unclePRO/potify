@@ -3,10 +3,13 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+
+  const { data: session } = useSession();
 
   //debouncing 
   useEffect(() => {

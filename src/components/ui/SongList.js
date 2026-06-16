@@ -1,24 +1,50 @@
 'use client'
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 import usePlayerStore from '@/store/usePlayerStore'
 import Image from 'next/image'
 import React from 'react'
 
 const SongList = ({ listName, listAuthor, listCover, songsList }) => {
     const { playSong } = usePlayerStore();
+    const { data: session } = useSession();
+    const [showAlert, setShowAlert] = useState(false);
 
-    // const handlePlay = () => {
-        
-    // }
+    const handleLike = async() => {
+        if (!session) {
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 3000);
+            return;
+        }
+
+        await fetch('/api/like', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'applications/json',
+            },
+            body: JSON.stringify({
+                vidId: 'testvidid',
+                title: 'gay',
+                artist: 'rick asley',
+                duration: 300,
+            })
+        })
+    }
 
     return (
         <div className='mr-4'>
+            {showAlert && (
+                <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-black/60 backdrop-blur-md border border-red-500/50 bg-red-300 text-black rounded-full shadow-lg transition-all duration-300">
+                    <p className="text-sm font-medium tracking-wide">You must be logged in to save tracks.</p>
+                </div>
+            )}
             <div className='flex w-full h-40 gap-10 bg-potify-surface'>
                 <Image
                 src={listCover}
                 alt='ok'
                 width={100}
                 height={100}
-                className='h-auto w-auto rounded-md object-cover'/>
+                className='h-auto rounded-md object-cover'/>
                 <div className='flex-1'>
                     <p className='text-[40px] mt-4'>{listName}</p>
                     <p className='text-xl'>{listAuthor}</p>
@@ -27,7 +53,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
             </div>
 
 
-            <div className='mt-4 grid grid-cols-[50px_minmax(0,2fr)_minmax(0,2fr)_1fr_50px_10px] opacity-30'>
+            <div className='mt-4 grid grid-cols-[50px_minmax(0,2fr)_minmax(0,2fr)_1fr_50px_50px] opacity-30'>
                 <p className='truncate'>S.no</p>
                 <p className='truncate'>Title</p>
                 <p className='truncate'>Artist</p>
@@ -38,7 +64,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
 
             {songsList.map((song, index) => {
                 return (
-                    <div key={song.id} className='group grid grid-cols-[50px_minmax(0,2fr)_minmax(0,2fr)_1fr_50px] py-2'>
+                    <div key={song.id} className='group grid grid-cols-[50px_minmax(0,2fr)_minmax(0,2fr)_1fr_50px_50px] py-2'>
                         <div className='grid items-center'>
                             <button onClick={() => playSong(song)} className='z-10 col-start-1 row-start-1 group-hover:opacity-100 opacity-0 hover:scale-110 transition-all duration-300 active:scale-95'>
                                 <Image
@@ -58,9 +84,18 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
                             alt=''
                             width={20}
                             height={20}
-                            className='h-auto w-auto rounded object-cover'
+                            className='h-auto rounded object-cover'
                             onError={(e) => e.target.src = '/song-cover.png'}
                             />
+                        <button onClick={() => handleLike()} className='hover:opacity-100 opacity-80 hover:scale-110 transition-all duration-300 active:scale-95'>
+                            <Image
+                                src={'/like-empty.png'}
+                                alt='not liked'
+                                width={18}
+                                height={18}
+                                className='h-auto'
+                                />
+                        </button>
                     </div>
             )})}
         </div>

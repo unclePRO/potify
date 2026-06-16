@@ -41,7 +41,7 @@ const Sidebar = () => {
                   alt='playlist cover'
                   width={48}
                   height={28}
-                  className='rounded h-auto'
+                  className='h-auto rounded'
                   onError={()=> setImageError(true)}
                 />
               </button>

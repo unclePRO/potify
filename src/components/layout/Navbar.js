@@ -43,6 +43,7 @@ const Navbar = () => {
                   alt="Search Icon"
                   width={20}
                   height={20}
+                  className='h-auto'
                   />
                 <input 
                   type='text'

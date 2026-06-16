@@ -44,7 +44,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
                 alt='ok'
                 width={100}
                 height={100}
-                className='h-auto rounded-md object-cover'/>
+                className='h-auto w-auto rounded-md object-cover'/>
                 <div className='flex-1'>
                     <p className='text-[40px] mt-4'>{listName}</p>
                     <p className='text-xl'>{listAuthor}</p>
@@ -84,7 +84,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
                             alt=''
                             width={20}
                             height={20}
-                            className='h-auto rounded object-cover'
+                            className='h-auto w-auto rounded object-cover'
                             onError={(e) => e.target.src = '/song-cover.png'}
                             />
                         <button onClick={() => handleLike()} className='hover:opacity-100 opacity-80 hover:scale-110 transition-all duration-300 active:scale-95'>

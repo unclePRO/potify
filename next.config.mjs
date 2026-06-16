@@ -5,17 +5,21 @@ const nextConfig = {
   
   reactCompiler: true,
   devIndicators: {
-    position: "bottom-right", // Options: 'bottom-right', 'bottom-left', 'top-left', 'top-right'
+    position: "bottom-right",
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'i.ytimg.com', // Your YouTube whitelist
+        hostname: 'i.ytimg.com', // YouTube whitelist
       },
       {
         protocol: 'https',
-        hostname: 'is1-ssl.mzstatic.com', /* This is YouTube's image server */
+        hostname: 'is1-ssl.mzstatic.com', // yt image server
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com', // google profile images
       },
     ],
   },

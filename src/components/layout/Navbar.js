@@ -60,9 +60,23 @@ const Navbar = () => {
                   />
           </div>
         </div>
-        <button className='flex-1 flex justify-end'>
-          Login
-        </button>
+        <div className='flex-1 flex justify-end'>
+          {session ? (
+            <div className="flex items-center gap-3">
+              <Image 
+                src={session.user.image} 
+                alt="Profile" 
+                width={20}
+                height={20}
+                className="w-8 h-8 rounded-full" />
+              <button onClick={() => signOut()}>Log out</button>
+            </div>
+          ) : (
+            <button onClick={() => signIn('google')} className="bg-white text-black px-4 py-2 rounded-full">
+              Log in
+            </button>
+          )}
+        </div>
     </header>
   )
 }

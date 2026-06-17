@@ -61,7 +61,7 @@ export async function GET(req) {
                 : '/song-cover.png'; 
 
             return {
-                id: song.id,
+                vidId: song.id,
                 title: song.title,
                 artist: song.channel || song.uploader || "Unknown Artist",
                 duration: song.duration_string || "0:00",

@@ -4,17 +4,10 @@ import React, { useRef, useState } from 'react'
 import ProgressBar from './ProgressBar';
 import usePlayerStore from '@/store/usePlayerStore';
 
-const dummyTrack = {
-  title: "",
-  artist: "",
-  coverArt: "",
-  duration: 355,
-  id: "",
-}
 const AudioPlayer = () => {
   const [imageError, setImageError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(dummyTrack.duration);
+  const [duration, setDuration] = useState(0);
 
 
   const { currentSong, isPlaying, playSong, togglePlay  } = usePlayerStore();

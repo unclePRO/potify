@@ -60,9 +60,9 @@ export async function GET(req) {
     const db = client.db("potify");
     const userId = session.user.id;
 
-    const likedSongs = await db.collection("liked_songs").findOne({ userId: userId })?.songs;
+    const likedSongs = await db.collection("liked_songs").findOne({ userId: userId });
 
     if(!likedSongs) return new Response(JSON.stringify([]), { status: 200 });
 
-    return new Response(JSON.stringify(likedSongs), { status: 200 })
+    return new Response(JSON.stringify(likedSongs.songs), { status: 200 })
 }

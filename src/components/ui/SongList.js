@@ -6,7 +6,7 @@ import Image from 'next/image'
 import React from 'react'
 
 const SongList = ({ listName, listAuthor, listCover, songsList }) => {
-    const { playSong } = usePlayerStore();
+    const { playSong, likedSongs, toggleLike, fetchSongs } = usePlayerStore();
     const { data: session } = useSession();
     const [showAlert, setShowAlert] = useState(false);
 
@@ -17,19 +17,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
             return;
         }
 
-        await fetch('/api/like', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'applications/json',
-            },
-            body: JSON.stringify({
-                vidId: song.id,
-                title: song.title,
-                artist: song.artist,
-                coverArt: song.coverArt,
-                duration: song.duration,
-            })
-        })
+        await toggleLike(song);
     }
 
     return (
@@ -65,7 +53,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
 
             {songsList.map((song, index) => {
                 return (
-                    <div key={song.id} className='group grid grid-cols-[50px_minmax(0,2fr)_minmax(0,2fr)_1fr_50px_50px] py-2'>
+                    <div key={song.vidId} className='group grid grid-cols-[50px_minmax(0,2fr)_minmax(0,2fr)_1fr_50px_50px] py-2'>
                         <div className='grid items-center'>
                             <button onClick={() => playSong(song)} className='z-10 col-start-1 row-start-1 group-hover:opacity-100 opacity-0 hover:scale-110 transition-all duration-300 active:scale-95'>
                                 <Image
@@ -89,13 +77,14 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
                             onError={(e) => e.target.src = '/song-cover.png'}
                             />
                         <button onClick={() => handleLike(song)} className='hover:opacity-100 opacity-80 hover:scale-110 transition-all duration-300 active:scale-95'>
-                            <Image
+                            { !likedSongs[song.vidId] ?
+                                <Image
                                 src={'/like-empty.png'}
                                 alt='not liked'
                                 width={18}
                                 height={18}
                                 className='h-auto'
-                                />
+                                /> :
                             <Image
                                 src={'/like-full.png'}
                                 alt='not liked'
@@ -103,6 +92,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
                                 height={18}
                                 className='h-auto'
                                 />
+                            }
                         </button>
                     </div>
             )})}

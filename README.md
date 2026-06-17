@@ -2,71 +2,61 @@
 
 **Live Demo:** [potify.unclepro.site](https://potify.unclepro.site)
 
-A high-quality, lightweight music streaming platform built from scratch. Potify leverages `yt-dlp` to deliver instantaneous, zero-transcoding Opus audio streams (160 kbps, Format 251) directly to a persistent web player, offering an audio experience that competes with premium streaming services.
+A custom-built music streaming app. It uses `yt-dlp` to grab high-quality audio and stream it straight to your browser. No middleman compression, no massive server storage—just a smooth, fast web player that keeps the music going while you click around the site.
 
-## Features
+## What's Working Right Now
+* **Direct Streaming:** Plays raw audio directly to the client. 
+* **Global Player:** The music doesn't stop or reload when you switch pages.
+* **Google Login:** Secure sign-in using NextAuth.
+* **Your Library:** A "Liked Songs" system that saves to a MongoDB database.
+* **Snappy UI:** We use Zustand for state management so things like the "Like" button update instantly on your screen without waiting for the database to catch up.
+* **Flexible Components:** The UI is built to handle song data whether it comes from an external search API or our own database.
 
-**Implemented**
-* **High-Fidelity Audio:** Streams raw `.webm` Opus audio directly to the client without lossy MP3 transcoding.
-* **Persistent Playback:** Global audio player UI that continues playing seamlessly while navigating across different pages.
-* **Authentication:** Secure OAuth integration using NextAuth.js (Google Provider) with MongoDB sessions.
-* **User Library:** "Liked Songs" functionality with persistent database storage.
-* **Optimistic UI:** Advanced state management using Zustand. Utilizes a Dictionary pattern for O(1) lookups, ensuring instant, lag-free UI updates across all components when interacting with tracks.
-* **Polymorphic Components:** Highly reusable UI architecture capable of normalizing data shapes from both external search APIs and internal database schemas.
-* **On-the-fly Streaming:** No massive server storage required; audio is proxied directly via Next.js backend services.
+## What's Coming Next
+* Custom playlists and queues.
+* Shuffle and repeat controls.
+* Lyrics integration.
 
-**Planned**
-* Custom playlists and queue management.
-* Advanced media controls (shuffle, repeat).
-* Full lyrics integration.
-
-## Tech Stack
+## Built With
 * **Frontend:** Next.js (App Router), React, Tailwind CSS
-* **Backend:** Next.js API Routes, Node.js `child_process`, NextAuth.js
-* **Database:** MongoDB & Native Node Driver
+* **Backend:** Next.js API Routes, Node.js, NextAuth.js
+* **Database:** MongoDB
 * **State Management:** Zustand
 * **Audio Engine:** `yt-dlp`
 
 ## Project Structure
-Built with a strict separation of concerns to keep API routes secure and React components modular.
+Organized to keep the API routes secure and the React components easy to reuse.
 
 ```text
 potify/
 ├── src/
-│   ├── app/                # Next.js App Router (Pages & API)
-│   │   ├── (main)/         # Route Group: Core App (Persistent Audio Player)
-│   │   │   ├── search/
-│   │   │   ├── library/
-│   │   │   └── liked/
-│   │   ├── api/            # Backend API Endpoints
-│   │   │   ├── auth/       # NextAuth.js configuration routes
-│   │   │   ├── like/       # MongoDB read/write for user library
-│   │   │   ├── stream/     # yt-dlp audio proxy
-│   │   │   └── search/     # YouTube metadata queries
-│   │   └── layout.jsx      # Root Layout & Session Providers
+│   ├── app/                # Next.js App Router
+│   │   ├── (main)/         # Core App (Search, Library, Liked Pages)
+│   │   ├── api/            # Backend (Auth, MongoDB, yt-dlp proxy)
+│   │   └── layout.jsx      # Root Layout & Global Providers
 │   │
-│   ├── components/         # React UI Building Blocks
+│   ├── components/         # React UI
 │   │   ├── layout/         # Sidebar, Navbar
-│   │   ├── player/         # AudioPlayer, ProgressBar, Volume
-│   │   └── ui/             # Reusable lists (SongList), buttons, cards
+│   │   ├── player/         # Audio Controls, Progress Bar
+│   │   └── ui/             # Reusable lists, buttons, cards
 │   │
-│   ├── lib/                # Shared utilities (MongoDB clientPromise)
-│   ├── models/             # Mongoose Database Schemas
+│   ├── lib/                # Shared utilities (MongoDB connection)
+│   ├── models/             # Database Schemas
 │   ├── services/           # Backend logic (yt-dlp wrappers)
-│   └── store/              # Zustand Global State (usePlayerStore)
+│   └── store/              # Zustand Global State
 ```
 
-## Getting Started
+## How to Run It Locally
 
 ### Prerequisites
 * Node.js
 * MongoDB instance (Local or Atlas)
 * Python (required for `yt-dlp`)
-* `yt-dlp` installed and accessible in your system's PATH
+* `yt-dlp` installed and added to your system's PATH
 * Google Cloud Console account (for OAuth credentials)
 
-### Installation
-1. Clone the repository:
+### Setup Steps
+1. Clone the repo:
    ```bash
    git clone [https://github.com/unclepro/potify.git](https://github.com/unclepro/potify.git)
    cd potify
@@ -75,7 +65,7 @@ potify/
    ```bash
    npm install
    ```
-3. Set up environment variables. Create a `.env.local` file in the root directory:
+3. Create a `.env.local` file in the root directory and add your keys:
    ```env
    MONGODB_URI=your_mongodb_connection_string
    GOOGLE_CLIENT_ID=your_google_oauth_client_id
@@ -83,7 +73,7 @@ potify/
    NEXTAUTH_SECRET=your_generated_nextauth_secret
    NEXTAUTH_URL=http://localhost:3000
    ```
-4. Run the development server:
+4. Start the dev server:
    ```bash
    npm run dev
    ```

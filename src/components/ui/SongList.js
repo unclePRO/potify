@@ -10,7 +10,7 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
     const { data: session } = useSession();
     const [showAlert, setShowAlert] = useState(false);
 
-    const handleLike = async() => {
+    const handleLike = async(song) => {
         if (!session) {
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 3000);
@@ -23,10 +23,11 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
                 'Content-type': 'applications/json',
             },
             body: JSON.stringify({
-                vidId: 'testvidid',
-                title: 'gay',
-                artist: 'rick asley',
-                duration: 300,
+                vidId: song.id,
+                title: song.title,
+                artist: song.artist,
+                coverArt: song.coverArt,
+                duration: song.duration,
             })
         })
     }
@@ -87,9 +88,16 @@ const SongList = ({ listName, listAuthor, listCover, songsList }) => {
                             className='h-auto w-auto rounded object-cover'
                             onError={(e) => e.target.src = '/song-cover.png'}
                             />
-                        <button onClick={() => handleLike()} className='hover:opacity-100 opacity-80 hover:scale-110 transition-all duration-300 active:scale-95'>
+                        <button onClick={() => handleLike(song)} className='hover:opacity-100 opacity-80 hover:scale-110 transition-all duration-300 active:scale-95'>
                             <Image
                                 src={'/like-empty.png'}
+                                alt='not liked'
+                                width={18}
+                                height={18}
+                                className='h-auto'
+                                />
+                            <Image
+                                src={'/like-full.png'}
                                 alt='not liked'
                                 width={18}
                                 height={18}

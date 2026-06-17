@@ -30,20 +30,22 @@ Organized to keep the API routes secure and the React components easy to reuse.
 ```text
 potify/
 ├── src/
-│   ├── app/                # Next.js App Router
-│   │   ├── (main)/         # Core App (Search, Library, Liked Pages)
-│   │   ├── api/            # Backend (Auth, MongoDB, yt-dlp proxy)
-│   │   └── layout.jsx      # Root Layout & Global Providers
+│   ├── app/                # Next.js App Router (Pages & API routes)
+│   │   ├── (main)/         # Core UI pages (Search, Liked, Playlists)
+│   │   └── api/            # Backend endpoints (Auth, MongoDB, yt-dlp proxy)
 │   │
-│   ├── components/         # React UI
-│   │   ├── layout/         # Sidebar, Navbar
-│   │   ├── player/         # Audio Controls, Progress Bar
-│   │   └── ui/             # Reusable lists, buttons, cards
+│   ├── components/         # React UI building blocks
+│   │   ├── layout/         # Sidebar, Navbar, Lyrics panel
+│   │   ├── player/         # Audio controls, volume, progress bar
+│   │   └── ui/             # Reusable cards, buttons, and lists
 │   │
-│   ├── lib/                # Shared utilities (MongoDB connection)
-│   ├── models/             # Database Schemas
-│   ├── services/           # Backend logic (yt-dlp wrappers)
-│   └── store/              # Zustand Global State
+│   ├── lib/                # Shared utilities and MongoDB connection
+│   ├── models/             # Database schemas
+│   ├── services/           # Backend logic and wrappers
+│   └── store/              # Zustand global state (usePlayerStore)
+│
+├── yt-dlp.exe              # Audio extraction engine
+└── [Config Files]          # package.json, tailwind, next.config, etc.
 ```
 
 ## How to Run It Locally
@@ -80,7 +82,7 @@ potify/
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Author
-**Aviral Pandey (uncle PRO)**
+**Aviral (unclePRO)**
 
 ---
 *Note: This project is currently a Work in Progress.*

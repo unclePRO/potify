@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.2",
-    "mongodb": "^7.3.0",
+    "mongodb": "^6.14.2",
     "next": "16.2.6",
     "next-auth": "^4.24.14",
     "react": "19.2.4",

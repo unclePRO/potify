@@ -21,6 +21,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com', // google profile images
       },
+      {
+        protocol: 'https',
+        hostname: 'tse2.mm.bing.net', // fav images
+      },
     ],
   },
 };

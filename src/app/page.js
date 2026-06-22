@@ -1,28 +1,10 @@
 'use client'
 import SongCard from '@/components/ui/SongCard'
+import usePlayerStore from '@/store/usePlayerStore'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const likedSongs = [
-  {
-    id: 1,
-    name: 'song 1',
-    thumbnail: '/song-cover.png',
-    artist: 'AR rehman',
-  },
-  {
-    id: 2,
-    name: 'song 2',
-    thumbnail: '/song-cover.png',
-    artist: 'Arnav',
-  },
-  {
-    id: 3,
-    name: 'song 3',
-    thumbnail: '/song-cover.png',
-    artist: 'aviral',
-  }
-]
 
 const recentSongs = [
   {
@@ -70,7 +52,12 @@ const recentPlaylists = [
 ]
 
 const HomePage = () => {
-  const [ imageError, setImageError ] = useState(false);
+  const { status } = useSession();
+  const { likedSongs, fetchSongs } = usePlayerStore();
+
+  useEffect(() => {
+    if (status === "authenticated") fetchSongs();
+  }, [fetchSongs, status]);
 
   return (
     <div className='flex-1 h-full mt-5 ml-5 mr-5'>
@@ -80,12 +67,12 @@ const HomePage = () => {
         </Link>
 
         <div className='flex h-40 gap-4'>
-          {likedSongs.map((song) => (
+          {Object.values(likedSongs).map((song) => (
             <SongCard
-            key={song.id}
-            cardTitle={song.name}
+            key={song.vidId}
+            cardTitle={song.title}
             cardArtist={song.artist}
-            cardThumbnail={imageError ? song.thumbnail : '/song-cover.png'}
+            cardThumbnail={song.coverArt}
             />
           ))}
         </div>
@@ -115,7 +102,7 @@ const HomePage = () => {
             key={playlist.id}
             cardTitle={playlist.name}
             cardArtist={playlist.artist}
-            cardThumbnail={imageError ? playlist.thumbnail : '/song-cover.png'}
+            cardThumbnail={playlist.thumbnail}
             />
           ))}
         </div>

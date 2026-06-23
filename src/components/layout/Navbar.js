@@ -17,7 +17,7 @@ const Navbar = () => {
     
     const delayBounce = setTimeout(() => {
       router.push(`/search?q=${searchQuery}`);
-    }, 2000);
+    }, 600);
 
     return () => clearTimeout(delayBounce);
   }, [searchQuery, router]);

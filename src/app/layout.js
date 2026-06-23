@@ -5,30 +5,33 @@ import LyricsPanel from "@/components/layout/LyricsPanel"
 import Sidebar from "@/components/layout/Sidebar"
 import AuthProvider from "@/components/AuthProvider"
 import LogTripwire from "@/components/LogTripwire"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/authOptions"
 
 export const metadata = {
   title: 'Potify',
-  description: 'A music app made by aviral [WIP]',
+  description: 'A music app made by unclepro, work in progress',
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className="h-screen flex flex-col overflow-hidden bg-potify-void text-potify-text">
-        <AuthProvider>
+        <AuthProvider session={session}>
           <LogTripwire/>
-          <Navbar/>                 {/* Top navigation bar */}
+          <Navbar session={session}/>                 {/* Top navigation bar */}
 
           {/* Main wrapper excluding audioplayer and navbar */}
           <div className="flex-1 w-full flex overflow-hidden">  
-            <Sidebar/>              {/* playlists side panel (left) */}
+            <Sidebar session={session}/>              {/* playlists side panel (left) */}
 
-            <main className="pb-20 pt-16 ml-20 mr-100 flex-1 overflow-y-auto min-h-0 rounded bg-potify-void">{children}</main> {/* centre area */}
+            <main className="pb-20 pt-16 ml-20 flex-1 overflow-y-auto min-h-0 rounded bg-potify-void">{children}</main> {/* centre area */}
 
-            <LyricsPanel/>          {/* Lyrics Side panel (right) */}
+            <LyricsPanel session={session}/>          {/* Lyrics Side panel (right) */}
           </div>
 
-          <AudioPlayer/>              {/* audio player at bottom */}
+          <AudioPlayer session={session}/>              {/* audio player at bottom */}
         </AuthProvider>
       </body>
     </html>

@@ -66,8 +66,8 @@ const HomePage = () => {
           <h1 className='font-sans antialiased text-xl font-bold tracking-wide'>Liked Songs</h1>
         </Link>
 
-        <div className='flex h-40 gap-4'>
-          {Object.values(likedSongs).map((song) => (
+        <div className='flex h-50 gap-4 overflow overflow-x-auto no-scrollbar'>
+          {Object.values(likedSongs).slice(0, 5).map((song) => (
             <SongCard
             key={song.vidId}
             cardTitle={song.title}

@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react'
 import ProgressBar from './ProgressBar';
 import usePlayerStore from '@/store/usePlayerStore';
 
-const AudioPlayer = () => {
+const AudioPlayer = ({ session }) => {
   const [imageError, setImageError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);

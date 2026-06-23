@@ -1,5 +1,4 @@
 'use client'
-import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -27,9 +26,8 @@ const playlists = [
   },
 ]
 
-const Sidebar = () => {
+const Sidebar = ({ session }) => {
   const [ imageError, setImageError ] = useState(false);
-  const { data:session, status } = useSession();
 
   if (session)
     return (
@@ -42,9 +40,9 @@ const Sidebar = () => {
                   <Image
                     src={imageError ? playlist.thumbnail : '/song-cover.png'}
                     alt='playlist cover'
-                    width={48}
+                    width={28}
                     height={28}
-                    className='h-auto rounded'
+                    className='h-14 w-auto rounded'
                     onError={()=> setImageError(true)}
                   />
                 </button>

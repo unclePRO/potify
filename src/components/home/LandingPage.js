@@ -47,17 +47,17 @@ const LandingPage = () => {
     const { playSong, likedSongs, toggleLike, fetchSongs } = usePlayerStore();
 
     return (
-        <div className='flex-1 h-full mt-5 ml-5 mr-5'>
+        <div className='flex-1 h-full mt-5 ml-5 mr-5 overflow-hidden'>
             <div className='flex-col w-full h-1/3'>
                 <h1 className='text-[25px] font-bold mb-3'>Favorites</h1>
                 <div className='flex gap-10 overflow overflow-x-auto'>
-                    {favoriteSongs.map(song => (
-                        <SongCard
-                          key={song.vidId}
-                          song={song}
-                        />
-                    ))}
-                </div>
+                  {favoriteSongs.map(song => (
+                      <SongCard
+                        key={song.vidId}
+                        song={song}
+                      />
+                  ))}
+              </div>
             </div>
         </div>
     )

@@ -185,7 +185,7 @@ const AudioPlayer = ({ session }) => {
 
         <div className='flex w-full h-16 justify-between'>
           {/* Cover and song details */}
-          <div className='relative mt-2 flex w-3/4 items-center h-full pl-1 justify-start min-w-0'>
+          <div className='flex w-3/4 items-center h-full pl-1 justify-start min-w-0'>
             <Image
               src={currentSong.coverArt || '/song-cover.png'}
               alt='song cover'

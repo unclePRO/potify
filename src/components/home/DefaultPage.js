@@ -8,21 +8,21 @@ import React, { useEffect, useState } from 'react'
 
 const recentSongs = [
   {
-    id: 1,
-    name: 'song 1',
-    thumbnail: '/song-cover.png',
+    vidId: 1,
+    title: 'song 1',
+    coverArt: '/song-cover.png',
     artist: 'AR rehman',
   },
   {
-    id: 2,
-    name: 'song 2',
-    thumbnail: '/song-cover.png',
+    vidId: 2,
+    title: 'song 2',
+    coverArt: '/song-cover.png',
     artist: 'Arnav',
   },
   {
-    id: 3,
-    name: 'song 3',
-    thumbnail: '/song-cover.png',
+    vidId: 3,
+    title: 'song 3',
+    coverArt: '/song-cover.png',
     artist: 'aviral',
   }
 ]
@@ -30,22 +30,22 @@ const recentSongs = [
 const recentPlaylists = [
   {
     id: 1,
-    name: 'playlist1',
-    thumbnail: '',
+    title: 'playlist1',
+    coverArt: '',
     author: '',
     link: '',
   },
   {
     id: 2,
-    name: 'playlist2',
-    thumbnail: '',
+    title: 'playlist2',
+    coverArt: '',
     author: '',
     link: '',
   },
   {
     id: 3,
-    name: 'playlist3',
-    thumbnail: '',
+    title: 'playlist3',
+    coverArt: '',
     author: '',
     link: '',
   },
@@ -70,9 +70,7 @@ const HomePage = () => {
           {Object.values(likedSongs).slice(0, 5).map((song) => (
             <SongCard
             key={song.vidId}
-            cardTitle={song.title}
-            cardArtist={song.artist}
-            cardThumbnail={song.coverArt}
+            song={song}
             />
           ))}
         </div>
@@ -84,10 +82,8 @@ const HomePage = () => {
         <div className='flex h-40 gap-4'>
           {recentSongs.map((song) => (
             <SongCard
-            key={song.id}
-            cardTitle={song.name}
-            cardArtist={song.author}
-            cardThumbnail={song.thumbnail}
+              key={song.vidId}
+              song={song}
             />
           ))}
         </div>
@@ -99,10 +95,8 @@ const HomePage = () => {
         <div className='flex h-40 gap-4'>
           {recentPlaylists.map((playlist) => (
             <SongCard
-            key={playlist.id}
-            cardTitle={playlist.name}
-            cardArtist={playlist.artist}
-            cardThumbnail={playlist.thumbnail}
+              key={playlist.id}
+              song={playlist}
             />
           ))}
         </div>

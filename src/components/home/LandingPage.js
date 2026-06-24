@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react'
 import Button from '../ui/Button';
 import usePlayerStore from '@/store/usePlayerStore';
+import SongCard from '../ui/SongCard';
 
 export const favoriteSongs = [
   {
@@ -51,30 +52,10 @@ const LandingPage = () => {
                 <h1 className='text-[25px] font-bold mb-3'>Favorites</h1>
                 <div className='flex gap-10 overflow overflow-x-auto'>
                     {favoriteSongs.map(song => (
-                        <div 
-                            key={song.vidId}
-                            className='group w-40 h-52 rounded object-cover shrink-0'>
-                                <div className='grid place-items-center mb-1'>
-                                    <Image
-                                        src={song.coverArt || '/song-cover.png'}
-                                        alt='thumbnail'
-                                        width={40}
-                                        height={40}
-                                        className='col-start-1 row-start-1 w-40 h-40 group-hover:opacity-50 opacity-100 object-cover transition transition-all duration-300 rounded'
-                                    />
-                                    <button onClick={() => playSong(song)}
-                                        className='z-10 col-start-1 row-start-1'>
-                                        <Image
-                                            src={'/play-button.png'}
-                                            alt='play'
-                                            width={10}
-                                            height={10}
-                                            className='h-10 w-10 group-hover:opacity-100 opacity-0 transition transition-all duration-300'/>
-                                    </button>
-                                </div>
-                                <p className='truncate text-[17px]'>{song.title}</p>
-                                <p className='truncate text-[14px] opacity-50'>{song.artist}</p>
-                        </div>
+                        <SongCard
+                          key={song.vidId}
+                          song={song}
+                        />
                     ))}
                 </div>
             </div>

@@ -26,7 +26,7 @@ export default async function RootLayout({ children }) {
           <div className="flex-1 w-full flex overflow-hidden">  
             <Sidebar session={session}/>              {/* playlists side panel (left) */}
 
-            <main className="pb-20 pt-16 ml-20 flex-1 overflow-y-auto min-h-0 rounded bg-potify-void">{children}</main> {/* centre area */}
+            <main className="flex-1 p-2 overflow-y-auto min-h-0 rounded bg-potify-void">{children}</main> {/* centre area */}
 
             <LyricsPanel session={session}/>          {/* Lyrics Side panel (right) */}
           </div>

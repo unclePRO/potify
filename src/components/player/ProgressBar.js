@@ -13,7 +13,7 @@ const ProgressBar = ({ PBcurrentTime, PBduration, onScrub }) => {
 
   return (
     <div className="w-full">
-      <div className='bg-neutral-600 h-0.5 w-full rounded-full mb-[20px]'>
+      <div className='bg-neutral-600 h-0.5 w-full rounded-full'>
         <div
           className='h-full bg-stone-200'
           style={{ width: `${progressPercent}%`}}

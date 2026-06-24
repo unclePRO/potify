@@ -10,20 +10,6 @@ const playlists = [
     author: '',
     link: '',
   },
-  {
-    id: 2,
-    name: 'playlist2',
-    thumbnail: '',
-    author: '',
-    link: '',
-  },
-  {
-    id: 3,
-    name: 'playlist3',
-    thumbnail: '',
-    author: '',
-    link: '',
-  },
 ]
 
 const Sidebar = ({ session }) => {
@@ -31,7 +17,7 @@ const Sidebar = ({ session }) => {
 
   if (session)
     return (
-      <aside className='fixed left-0 top-16 bottom-20 w-16 h-screen rounded bg-potify-surface'>
+      <aside className='hidden md:flex pt-4 w-16 rounded bg-potify-surface'>
         <div className='flex-1 '>
           {playlists.map((playlist) => {
             return (
@@ -56,7 +42,7 @@ const Sidebar = ({ session }) => {
 
   else 
     return (
-      <aside className='fixed left-0 top-16 bottom-20 w-16 h-screen rounded bg-potify-surface'>
+      <aside className='hidden md:flex left-0 top-16 bottom-20 w-16 h-screen rounded bg-potify-surface'>
         <div className='flex-1 '>
           <p style={{ writingMode: 'vertical-lr', textOrientation: 'mixed' }} className='text-[40px] font-bold tracking-widest uppercase bg-gradient-to-t from-gray-500 via-white-500 bg-[length:auto_200%] bg-clip-text text-transparent animate-shimmer whitespace-nowrap -rotate-180'>.......Log in to see playlists</p>
         </div>

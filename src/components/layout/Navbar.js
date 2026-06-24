@@ -21,9 +21,12 @@ const Navbar = ({ session }) => {
   }, [searchQuery, router]);
 
   return (
-    <header className="fixed top-0 left-0 w-full h-16 z-50 flex items-center px-6 bg-potify-void border-b border-potify-hover">
+    <header className="w-full h-16 z-50 flex items-center px-6 bg-potify-void border-b border-potify-hover">
+        
+        {/* LOGO */}
         <Link
         href={"/"}
+        className='flex-1 flex justify-start'
          >
           <Image 
             src="/potifywithtext.png"
@@ -31,34 +34,45 @@ const Navbar = ({ session }) => {
             width={80}
             height={12}
             priority
-            className="h-12 flex rounded-full pt-0.5 w-auto justify-start"
+            className="h-12 hidden md:flex rounded-full pt-0.5 w-auto justify-start"
+          />
+          <Image 
+            src="/potifylogo.png"
+            alt="Potify Logo"
+            width={80}
+            height={12}
+            priority
+            className="h-12 md:hidden rounded-full pt-0.5 w-auto justify-start"
           />
         </Link>
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <div className="flex items-center gap-32 px-4 py-2 rounded-full w-96 text-center bg-potify-surface border border-potify-hover text-potify-text">
-                <Image
-                  src="/searchIcon.png"
-                  alt="Search Icon"
-                  width={20}
-                  height={20}
-                  className='h-auto'
-                  />
-                <input 
-                  type='text'
-                  placeholder='Search'
-                  className='bg-transparent outline-none'
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      if (searchQuery.trim() !== '') {
-                        router.push(`/search?q=${searchQuery}`);
-                      }
-                    }
-                  }}
-                  />
-          </div>
+
+        {/* SEARCH */}
+
+        <div className="flex flex-1 w-full max-w-md items-center px-4 py-2 rounded-full text-center bg-potify-surface border border-potify-hover text-potify-text">
+          <Image
+            src="/searchIcon.png"
+            alt="Search Icon"
+            width={20}
+            height={20}
+            className='h-auto'
+            />
+          <input 
+            type='text'
+            placeholder='Search'
+            className='bg-transparent outline-none w-full text-center'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                if (searchQuery.trim() !== '') {
+                  router.push(`/search?q=${searchQuery}`);
+                }
+              }
+            }}
+            />
         </div>
+
+        {/* LOGIN */}
         <div className='flex-1 flex justify-end'>
           {session ? (
             <div className="flex items-center gap-3">
@@ -67,11 +81,14 @@ const Navbar = ({ session }) => {
                 alt="Profile" 
                 width={20}
                 height={20}
-                className="w-8 h-8 rounded-full" />
-              <button onClick={() => signOut()}>Log out</button>
+                className="w-8 h-8 rounded-full hidden md:flex" />
+              <button 
+                onClick={() => signOut()} 
+                className='text-xs md:text-base bg-white text-black px-3 py-2 rounded-full cursor-pointer'
+                >Log out</button>
             </div>
           ) : (
-            <button onClick={() => signIn('google')} className="bg-white text-black px-4 py-2 rounded-full">
+            <button onClick={() => signIn('google')} className="text-xs md:text-base bg-white text-black px-4 py-2 rounded-full cursor-pointer">
               Log in
             </button>
           )}

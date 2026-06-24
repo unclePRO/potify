@@ -7,48 +7,11 @@ import React, { useEffect, useState } from 'react'
 
 
 const recentSongs = [
-  {
-    vidId: 1,
-    title: 'song 1',
-    coverArt: '/song-cover.png',
-    artist: 'AR rehman',
-  },
-  {
-    vidId: 2,
-    title: 'song 2',
-    coverArt: '/song-cover.png',
-    artist: 'Arnav',
-  },
-  {
-    vidId: 3,
-    title: 'song 3',
-    coverArt: '/song-cover.png',
-    artist: 'aviral',
-  }
+  
 ]
 
 const recentPlaylists = [
-  {
-    id: 1,
-    title: 'playlist1',
-    coverArt: '',
-    author: '',
-    link: '',
-  },
-  {
-    id: 2,
-    title: 'playlist2',
-    coverArt: '',
-    author: '',
-    link: '',
-  },
-  {
-    id: 3,
-    title: 'playlist3',
-    coverArt: '',
-    author: '',
-    link: '',
-  },
+  
 ]
 
 const HomePage = () => {

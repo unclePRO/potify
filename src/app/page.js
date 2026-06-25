@@ -1,12 +1,18 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
+'use client'
 import LandingPage from '@/components/home/LandingPage';
 import DefaultPage from '@/components/home/DefaultPage';
+import { useSession } from "next-auth/react";
 
-export default async function HomePage() {
-    const session = await getServerSession(authOptions);
+export default function HomePage() {
+  const { data:session, status } = useSession();
 
-    if (!session) {
+    if (status === "loading") {
+        // Return a completely blank void (or a spinner) that matches your background.
+        // This prevents the LandingPage from flashing while the browser thinks.
+        return <div className="flex-1 w-full h-full bg-potify-void"></div>; 
+    }
+
+    if (status === "unauthenticated" || !session) {
         return <LandingPage/>;
     }
     

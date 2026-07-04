@@ -4,6 +4,8 @@
 /songs_cache
 /audio_cache
 
+# idea
+/.idea
 # dependencies
 /node_modules
 /.pnp

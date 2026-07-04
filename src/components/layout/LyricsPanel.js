@@ -1,10 +1,12 @@
 'use client'
 import usePlayerStore from '@/store/usePlayerStore'
+import { useSession } from 'next-auth/react';
 import React from 'react'
 
-const LyricsPanel = ({ session }) => {
-  const { currentSong, isPlaying } = usePlayerStore();
 
+const LyricsPanel = () => {
+  const { currentSong, isPlaying } = usePlayerStore();
+  const { data: session } = useSession();
   if(true) return null;
   //replace true with !currentSong
 

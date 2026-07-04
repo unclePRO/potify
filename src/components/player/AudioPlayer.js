@@ -3,8 +3,10 @@ import Image from 'next/image'
 import React, { useRef, useState } from 'react'
 import ProgressBar from './ProgressBar';
 import usePlayerStore from '@/store/usePlayerStore';
+import { useSession } from 'next-auth/react';
 
-const AudioPlayer = ({ session }) => {
+const AudioPlayer = () => {
+  const { data: session } = useSession();
   const [imageError, setImageError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);

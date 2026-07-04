@@ -1,4 +1,5 @@
 'use client'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -12,7 +13,9 @@ const playlists = [
   },
 ]
 
-const Sidebar = ({ session }) => {
+const Sidebar = () => {
+  const { data: session } = useSession();
+
   const [ imageError, setImageError ] = useState(false);
 
   if (session)

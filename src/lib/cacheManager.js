@@ -10,7 +10,7 @@ export async function enforceCacheLimit() {
     const maxBytes = limitGB * 1024 * 1024 * 1024;
     const targetBytes = maxBytes * 0.9;
 
-    const cacheDir = path.join(process.cwd(), 'audio_cache');
+    const cacheDir = path.join(process.cwd(), 'songs_cache');
     if (!fs.existsSync(cacheDir)) return;
 
     try {

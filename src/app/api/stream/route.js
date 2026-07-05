@@ -25,20 +25,27 @@ export async function GET(req) {
 
     // play from cache
     if (USE_CACHE && fs.existsSync(cachedFilePath)) {
-        console.log(`Serving ${videoId} from HDD Cache`);
+        const stats = fs.statSync(cachedFilePath);
         
-        const fileStream = fs.createReadStream(cachedFilePath);
-        
-        req.signal.addEventListener('abort', () => {
-            fileStream.destroy();
-        });
+        if (stats.size > 50000) {
+            console.log(`Playing ${videoId} from HDD Cache`);
+            
+            const fileStream = fs.createReadStream(cachedFilePath);
+            
+            req.signal.addEventListener('abort', () => {
+                fileStream.destroy();
+            });
 
-        return new Response(Readable.toWeb(fileStream), {
-            headers: {
-                'Content-Type': 'audio/mp4',
-                'Transfer-Encoding': 'chunked',
-            },
-        });
+            return new Response(Readable.toWeb(fileStream), {
+                headers: {
+                    'Content-Type': 'audio/mp4',
+                    'Transfer-Encoding': 'chunked',
+                },
+            });
+        } else {
+            console.log(`Corrupt cache file found for ${videoId}. Deleting...`);
+            fs.unlinkSync(cachedFilePath);
+        }
     }
 
     // play from ytdlp
@@ -51,10 +58,10 @@ export async function GET(req) {
         '-o', '-',                 
         '-f', 'ba[ext=m4a]/ba/b[height<=360]/b', 
         '--no-playlist',           
-        '--ignore-errors',         
         '--quiet',                 
-        '--no-warnings',         
-        '--rm-cache-dir',        
+        '--no-warnings', 
+        '--add-header', 'referer:youtube.com', 
+        '--add-header', 'user-agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         '--js-runtimes', 'node', 
         `https://www.youtube.com/watch?v=${videoId}` 
     ]);

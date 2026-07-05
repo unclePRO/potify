@@ -12,7 +12,8 @@ const AudioPlayer = () => {
   const [duration, setDuration] = useState(0);
 
 
-  const { currentSong, isPlaying, playSong, togglePlay, likedSongs, toggleLike  } = usePlayerStore();
+  const { currentSong, isPlaying, playSong, togglePlay, likedSongs, toggleLike, playNext  } = usePlayerStore();
+
   const [showAlert, setShowAlert] = useState(false);
 
   const audioRef = useRef(null);
@@ -64,7 +65,7 @@ const AudioPlayer = () => {
       <audio 
         ref={audioRef} 
         src={`/api/stream?id=${currentSong.vidId}`}
-        onEnded={() => togglePlay()}
+        onEnded={() => playNext()}
         onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
         onLoadedMetadata={() => setDuration(audioRef.current.duration)}
       />

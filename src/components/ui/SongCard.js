@@ -14,6 +14,7 @@ const SongCard = ({ song }) => {
                   alt='thumbnail'
                   width={120}
                   height={120}
+                  priority
                   className='col-start-1 row-start-1 w-30 h-30 group-hover:opacity-50 opacity-100 object-cover transition transition-all duration-300 rounded'
               />
               <button onClick={() => playSong(song)}
